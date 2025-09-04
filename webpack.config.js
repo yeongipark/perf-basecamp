@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin'); // 추가
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -12,14 +12,14 @@ module.exports = (env, argv) => {
     output: {
       filename: 'bundle.js',
       path: path.join(__dirname, '/dist'),
-      clean: true // build 전 dist 폴더 정리
+      clean: true
     },
     devServer: {
       hot: true,
       open: true,
       historyApiFallback: true
     },
-    devtool: isProduction ? false : 'source-map', // 파일의 계층 구조를 계층적으로 보여줌
+    devtool: isProduction ? false : 'source-map',
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html'
@@ -43,7 +43,7 @@ module.exports = (env, argv) => {
           use: ['style-loader', 'css-loader']
         },
         {
-          test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+          test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|webp)$/i,
           loader: 'file-loader',
           options: {
             name: 'static/[name].[ext]'
@@ -64,9 +64,8 @@ module.exports = (env, argv) => {
             },
             format: {
               comments: false,
-              beautify: false // 코드 예쁘게 출력 안 하고 한 줄로 압축
+              beautify: false
             },
-            //변수/함수 이름 난독화(짧게 줄임).
             mangle: {
               toplevel: true
             }
