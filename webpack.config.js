@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -27,7 +28,8 @@ module.exports = (env, argv) => {
       new CopyWebpackPlugin({
         patterns: [{ from: './public', to: './public' }]
       }),
-      new Dotenv()
+      new Dotenv(),
+      new BundleAnalyzerPlugin()
     ],
     module: {
       rules: [
@@ -52,7 +54,9 @@ module.exports = (env, argv) => {
       ]
     },
     optimization: {
+      usedExports: true,
       minimize: true,
+      sideEffects: true,
       minimizer: [
         new TerserPlugin({
           terserOptions: {
