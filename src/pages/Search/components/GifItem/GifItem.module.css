@@ -10,6 +10,7 @@
   );
   overflow: hidden;
   transition: transform 0.2s ease-in;
+  contain: layout style;
   will-change: transform;
   border-radius: 4%;
 }
