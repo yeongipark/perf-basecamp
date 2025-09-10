@@ -11,10 +11,8 @@ import { lazy, Suspense } from 'react';
 const Search = lazy(() => import('./pages/Search/Search'));
 
 const App = () => {
-  const basename = process.env.NODE_ENV === 'production' ? '/perf-basecamp' : '';
-
   return (
-    <Router basename={basename}>
+    <Router>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
